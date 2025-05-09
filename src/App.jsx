@@ -5,22 +5,19 @@ import './App.css'
 import MovieCard from './components/MovieCard'
 import poster from './assets/react.svg'
 import Home from './pages/Home'
+import Favorite from './pages/Favourite'
+import {Routes,Route} from 'react-router-dom'
 
-function Test({text}){
-    return (
-      <>
-      <div>
-        <p>{text}</p>
-      </div>
-      </>
-    )
-  }
+
 function App() {
 
   
   return (
     <>
-    <Home/>
+   <Routes>
+    <Route path='/' element={<Home></Home>}></Route>
+    <Route path='/favorite' element = {<Favorite/>}></Route>
+   </Routes>
     </>
      
   )
