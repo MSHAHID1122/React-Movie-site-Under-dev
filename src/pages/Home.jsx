@@ -68,7 +68,7 @@ function Home() {
 
 
       { loading ? <div>Loading movies...</div> :my_movies.map((movie)=>(
-        <MovieCard movies={movie} key={movie.id}/> ))
+        <MovieCard movie={movie} key={movie.id}/> ))
     
       }
       </div>
