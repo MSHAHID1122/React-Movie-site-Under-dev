@@ -7,13 +7,16 @@ import poster from './assets/react.svg'
 import Home from './pages/Home'
 import Favorite from './pages/Favourite'
 import {Routes,Route} from 'react-router-dom'
-
+import Navbar from './components/Navbar'
 
 function App() {
 
   
   return (
     <>
+    <div>
+    <Navbar></Navbar>
+    </div>
    <Routes>
     <Route path='/' element={<Home></Home>}></Route>
     <Route path='/favorite' element = {<Favorite/>}></Route>
