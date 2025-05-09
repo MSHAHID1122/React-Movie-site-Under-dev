@@ -1,20 +1,55 @@
 import React from 'react'
 import MovieCard from '../components/MovieCard'
-import { useState } from 'react'
+import { useState ,useEffect} from 'react'
+import {getMovies,searchMovies} from '../services/api'
+
+
+
+
 function Home() {
    const [user_input,set_input] = useState('');
+   const [my_movies,set_movies] = useState([]);
+   const [error,set_error] = useState(null);
+   const [loading,set_loading] = useState(true);
+   
+
+   useEffect(()=>{
+    set_loading(true)
+    
+    const loadMovies= async ()=>{
+      try{
+        const loadedmovies = await getMovies()
+        set_movies(loadedmovies)
+      }
+      catch(err){
+        
+        set_error('failed to get movies')
+      }
+      finally{set_loading(false)}
+    }
+
+    loadMovies();
+   },[])
 
 
-  const my_movies=[
-    {id:1,title:'movie1',release_date:'1,2,2203'},
-    {id:2,title:'movie2',release_date:'2,2,2203'},
-    {id:3,title:'movie3',release_date:'3,2,2203'},
-    {id:4,title:'movie4',release_date:'4,2,2203'}
-
-  ];
-  const handleSearch=(e)=>{
+  const handleSearch= async (e)=>{
     e.preventDefault()
-       alert(user_input)
+    if (loading) return 
+    set_loading(true)
+      try{
+          const getmovie = await searchMovies(user_input)
+          set_movies(getmovie)
+          set_error(null)
+
+      }
+      catch(err){
+        console.log(err)
+       set_error("failed to fetc movie")    
+      }
+      finally{
+        set_loading(false)
+      }
+
 
 
   }
@@ -30,8 +65,9 @@ function Home() {
 
       </div>
       <div>
-      { my_movies.map((movie)=>(
-        movie.title.toLowerCase().startsWith(user_input) &&
+
+
+      { loading ? <div>Loading movies...</div> :my_movies.map((movie)=>(
         <MovieCard movies={movie} key={movie.id}/> ))
     
       }

@@ -1,19 +1,12 @@
-
-
-
 function MovieCard({movies}){
-     function clicked(){
-        alert('button clicked')
-     }
+    
     return(
     <>
     <div>
         <div>
-        <img src={movies.poster} alt={movies.title} />
+        <img src={`https://image.tmdb.org/t/p/w200${movies.poster_path}`} alt={movies.title} />
         </div>
-        <div>
-            <button onClick={clicked}> Heart</button>
-        </div>
+        
     </div>
     <div>
         <h3>{movies.title}</h3>
