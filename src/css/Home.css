@@ -5,8 +5,8 @@
 }
 
 .search-form {
-  max-width: 600px;
-  margin: 0 auto 2rem;
+  max-width: 700px;
+  margin: 0 auto 1rem;
   display: flex;
   gap: 1rem;
   padding: 0 1rem;
@@ -55,9 +55,26 @@
 
 .movies-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(5, 1fr); /* 5 columns */
   gap: 1.5rem;
-  padding: 1rem;
-  width: 100%;
+  padding: 0.5rem;
+  width: 130%;
   box-sizing: border-box;
+}
+@media (max-width: 1024px) {
+  .movies-grid {
+    grid-template-columns: repeat(3, 1fr); /* 3 cards per row on tablets */
+  }
+}
+
+@media (max-width: 768px) {
+  .movies-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 per row on small tablets */
+  }
+}
+
+@media (max-width: 480px) {
+  .movies-grid {
+    grid-template-columns: repeat(1, 1fr); /* 1 per row on phones */
+  }
 }

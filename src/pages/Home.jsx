@@ -1,78 +1,72 @@
 import React from 'react'
 import MovieCard from '../components/MovieCard'
-import { useState ,useEffect} from 'react'
-import {getMovies,searchMovies} from '../services/api'
-
-
-
-
+import { useState, useEffect } from 'react'
+import { getMovies, searchMovies } from '../services/api'
+import '../css/Home.css'
 function Home() {
-   const [user_input,set_input] = useState('');
-   const [my_movies,set_movies] = useState([]);
-   const [error,set_error] = useState(null);
-   const [loading,set_loading] = useState(true);
-   
+  const [user_input, set_input] = useState('');
+  const [my_movies, set_movies] = useState([]);
+  const [error, set_error] = useState(null);
+  const [loading, set_loading] = useState(true);
 
-   useEffect(()=>{
+  useEffect(() => {
     set_loading(true)
-    
-    const loadMovies= async ()=>{
-      try{
+
+    const loadMovies = async () => {
+      try {
         const loadedmovies = await getMovies()
         set_movies(loadedmovies)
-      }
-      catch(err){
-        
+      } catch (err) {
         set_error('failed to get movies')
+      } finally {
+        set_loading(false)
       }
-      finally{set_loading(false)}
     }
 
     loadMovies();
-   },[])
+  }, [])
 
-
-  const handleSearch= async (e)=>{
+  const handleSearch = async (e) => {
     e.preventDefault()
-    if (loading) return 
+    if (loading) return
     set_loading(true)
-      try{
-          const getmovie = await searchMovies(user_input)
-          set_movies(getmovie)
-          set_error(null)
-
-      }
-      catch(err){
-        console.log(err)
-       set_error("failed to fetc movie")    
-      }
-      finally{
-        set_loading(false)
-      }
-
-
-
+    try {
+      const getmovie = await searchMovies(user_input)
+      set_movies(getmovie)
+      set_error(null)
+    } catch (err) {
+      console.log(err)
+      set_error("failed to fetch movie")
+    } finally {
+      set_loading(false)
+    }
   }
-
 
   return (
-    <div>
+    <div className="home">
       <div>
-        <form onSubmit={handleSearch}>
-         <input type='text ' placeholder='enter your text' value={user_input} onChange={(e)=>{set_input(e.target.value)}}></input>
-       <button type='submit'>Search</button>
+        <form className="search-form" onSubmit={handleSearch}>
+          <input
+            type="text"
+            placeholder="enter your text"
+            className="search-input"
+            value={user_input}
+            onChange={(e) => { set_input(e.target.value) }}
+          />
+          <button type="submit" className="search-button">Search</button>
         </form>
-
       </div>
-      <div>
-
-
-      { loading ? <div>Loading movies...</div> :my_movies.map((movie)=>(
-        <MovieCard movie={movie} key={movie.id}/> ))
-    
-      }
+      <div className="movies-grid">
+        {
+          loading
+            ? <div>Loading movies...</div>
+            : my_movies.map((movie) => (
+              <MovieCard movie={movie} key={movie.id} />
+            ))
+        }
       </div>
-    </div> 
-    )
-  }
+    </div>
+  )
+}
+
 export default Home
