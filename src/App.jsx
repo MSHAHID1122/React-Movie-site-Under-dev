@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import MovieCard from './components/MovieCard'
 import poster from './assets/react.svg'
+import Home from './pages/Home'
 
 function Test({text}){
     return (
@@ -15,13 +16,11 @@ function Test({text}){
     )
   }
 function App() {
-  const movieNumber =2;
+
   
   return (
     <>
-    {movieNumber=== 1 ?(<MovieCard movies={{title:'jangni',release_date:'12,1,2006',poster:poster}}/>):
-    (<MovieCard movies={{title:'seta',release_date:'12,1,2006',poster:poster}}/>)}
-    
+    <Home/>
     </>
      
   )
