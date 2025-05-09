@@ -15,11 +15,13 @@ function Test({text}){
     )
   }
 function App() {
-  const [count, setCount] = useState(0)
+  const movieNumber =2;
   
   return (
     <>
-    <MovieCard movies={{title:'jangni',release_date:'12,1,2006',poster:poster}}/>
+    {movieNumber=== 1 ?(<MovieCard movies={{title:'jangni',release_date:'12,1,2006',poster:poster}}/>):
+    (<MovieCard movies={{title:'seta',release_date:'12,1,2006',poster:poster}}/>)}
+    
     </>
      
   )
